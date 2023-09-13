@@ -8,7 +8,7 @@ Cubie[] cube = new Cubie[dim*dim*dim]; // Matriz tridimensional 3x3
 String[] allMoves = {"f","b","u","d","l","r"};
 String sequence = "";
 int count = 0;
-
+// abdias
 boolean start = false;
 
 public void setup() {
