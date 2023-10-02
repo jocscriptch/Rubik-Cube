@@ -1,4 +1,4 @@
-//turnos para los giros de las caras en los ejes x,y,z
+// metodos para los giros de los ejes x,y,z
 
 //rotar Z
 public void turnZ(int index, int dir) {
