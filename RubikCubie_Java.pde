@@ -76,37 +76,36 @@ public void setup() {
 }
 
 public void draw() {
+    background(#151515); // Establecer el fondo de la ventana
+    rotateX(-0.5);
+    rotateY(0.4);
+    rotateZ(0.1);
 
-  background(#151515); // Establecer el fondo de la ventana
-  rotateX(-0.5);
-  rotateY(0.4);
-  rotateZ(0.1);
+    move.update();
+    //if(move.finished()){
+    //  turnZ.(move.z, move.dir);
+    //}
 
-  move.update();
-  //if(move.finished()){
-  //  turnZ.(move.z, move.dir);
-  //}
-
-  //if(start){
-  //  if(frameCount % 20 == 0){
-  //  if(count < sequence.length()){
-  //    char move = sequence.charAt(count);
-  //    applyMove(move);
-  //    count++;
-  //    }
-  //  }
-  //}
-  scale(50);
-  for (int i = 0; i < cube.length; i++) {
-    push();
-    if (abs(cube[i].z) > 0 && cube[i].z == move.z) {
-      rotateZ(move.angle);
-    } else if (abs(cube[i].x) > 0 && cube[i].x == move.x) {
-      rotateX(move.angle);
-    } else if (abs(cube[i].y) > 0 && cube[i].y == move.y) {
-      rotateY(-move.angle);
+    //if(start){
+    //  if(frameCount % 20 == 0){
+    //  if(count < sequence.length()){
+    //    char move = sequence.charAt(count);
+    //    applyMove(move);
+    //    count++;
+    //    }
+    //  }
+    //}
+    scale(50);
+    for (int i = 0; i < cube.length; i++) {
+      push();
+      if (abs(cube[i].z) > 0 && cube[i].z == move.z) {
+        rotateZ(move.angle);
+      } else if (abs(cube[i].x) > 0 && cube[i].x == move.x) {
+        rotateX(move.angle);
+      } else if (abs(cube[i].y) > 0 && cube[i].y == move.y) {
+        rotateY(-move.angle);
+      }
+      cube[i].show();
+      pop();
     }
-    cube[i].show();
-    pop();
-  }
 }
