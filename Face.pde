@@ -1,14 +1,16 @@
-class Face {
-
+class Face 
+{
   PVector normal;
   color c;
 
-  Face(PVector normal, color c) {
+  Face(PVector normal, color c) 
+  {
     this.normal = normal;
     this.c = c;
   }
 
-  public void turnZ(float angle) {
+  public void turnZ(float angle)
+  {
 
     PVector v2 = new PVector();
     v2.x = round(normal.x * cos(angle) - normal.y * sin(angle));
@@ -17,7 +19,8 @@ class Face {
     normal = v2;
   }
 
-  public void turnY(float angle) {
+  public void turnY(float angle) 
+  {
 
     PVector v2 = new PVector();
     v2.x = round(normal.x * cos(angle) - normal.z * sin(angle));
@@ -26,7 +29,8 @@ class Face {
     normal = v2;
   }
   
-  public void turnX(float angle) {
+  public void turnX(float angle) 
+  {
     PVector v2 = new PVector();
     v2.y = round(normal.y * cos(angle) - normal.z * sin(angle));
     v2.z = round(normal.y * sin(angle) + normal.z * cos(angle));
@@ -34,7 +38,8 @@ class Face {
     normal = v2;
   }
 
-  public void show() {
+  public void show() 
+  {
     pushMatrix();
     fill(c);
     noStroke();
@@ -46,7 +51,6 @@ class Face {
     } else if (abs(normal.y) > 0) {
       rotateX(HALF_PI);
     }
-
     square(0, 0, 1);
     popMatrix();
   }

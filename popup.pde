@@ -1,15 +1,17 @@
-void createGUI() {
-  mostrarButton = new GButton(this, 150, 400, 100, 40); // Inicializar mostrarButton aquí
+public void createGUI() 
+{
+  mostrarButton = new GButton(this, 200, 580, 100, 40); // Inicializar mostrarButton aquí
   mostrarButton.setText("Manual juego");
   mostrarButton.addEventHandler(this, "handleButtonEvents");
 
-  closeButton = new GButton(this, 50, 400, 100, 40);
+  closeButton = new GButton(this, 70, 580, 100, 40);
   closeButton.setText("Cerrar");
   closeButton.setVisible(false);
   closeButton.addEventHandler(this, "handleButtonEvents");
 }
 
-void handleButtonEvents(GButton button, GEvent event) {
+public void handleButtonEvents(GButton button, GEvent event) 
+{
   if (button == mostrarButton && event == GEvent.CLICKED) {
     mostrarPopup = true;
     closeButton.setVisible(true);
@@ -20,12 +22,13 @@ void handleButtonEvents(GButton button, GEvent event) {
   }
 }
 
-void drawPopup() {
+public void drawPopup()
+{
   fill(255);
-  rect(0, 0, 400, 400);
+  rect(100, 0, 500, 500);
   fill(0);
   textAlign(CENTER, CENTER);
-  textSize(12);
+  textSize(14);
   text("Manual de Usuario - Juego de Cubo Rubik\n" +
     "Controles:\n" +
     "Para comenzar el juego desde la pantalla de inicio, presiona el boton de jugar.\n" +
@@ -42,5 +45,5 @@ void drawPopup() {
     "-Tecla F: Gira la cara frontal (Front) en el sentido antihorario.\n"+
     "-Tecla b: Gira la cara trasera (Back) en el sentido horario.\n"+
     "-Tecla B: Gira la cara trasera (Back) en el sentido antihorario.\n"+
-    "¡Diviértete jugando el Cubo Rubik en Processing!", 0, 0, 400, 400);
+    "¡Diviértete jugando el Cubo Rubik en Processing!", 100, 0, 500, 500);
 }

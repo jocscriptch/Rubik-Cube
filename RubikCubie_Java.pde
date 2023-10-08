@@ -2,43 +2,27 @@ import peasy.*;
 import javax.swing.JOptionPane;
 import controlP5.*;
 import g4p_controls.*;
-ControlP5 cp5;
-Boton boton, bt2, bt3;
-Textfield nameField;
-
-PImage bgImage;
 
 PeasyCam cam;
-
-String manual = "Manual de Usuario - Juego de Cubo Rubik\n" +
-"Controles:\n" +
-"Para comenzar el juego desde la pantalla de inicio, presiona el boton de jugar.\n" +
-"Una vez en el juego, puedes realizar los movimientos del cubo utilizando las siguientes teclas:\n" +
-"-Tecla d: Gira la cara inferior (Down) en el sentido horario.\n" +
-"-Tecla D: Gira la cara inferior (Down) en el sentido antihorario.\n"+
-"-Tecla u: Gira la cara superior (Up) en el sentido horario.\n"+
-"-Tecla U: Gira la cara superior (Up) en el sentido antihorario.\n"+
-"-Tecla r: Gira la cara derecha (Right) en el sentido horario.\n"+
-"-Tecla R: Gira la cara derecha (Right) en el sentido antihorario.\n"+
-"-Tecla l: Gira la cara izquierda (Left) en el sentido horario.\n"+
-"-Tecla L: Gira la cara izquierda (Left) en el sentido antihorario.\n"+
-"-Tecla f: Gira la cara frontal (Front) en el sentido horario.\n"+
-"-Tecla F: Gira la cara frontal (Front) en el sentido antihorario.\n"+
-"-Tecla b: Gira la cara trasera (Back) en el sentido horario.\n"+
-"-Tecla B: Gira la cara trasera (Back) en el sentido antihorario.\n"+
-"¡Diviértete jugando el Cubo Rubik en Processing!";
+PImage bgImage;
+ControlP5 cp5;
+Boton boton;
+GButton mostrarButton;
+GButton closeButton;
+boolean startScreen = true;
+boolean start = false;
+boolean optionPane = false;
+boolean mostrarPopup = false;
+String nombre = "";
 
 int dim = 3;
 Cubie[] cube = new Cubie[dim*dim*dim]; // Matriz tridimensional 3x3
-//String[] allMoves = {"f","b","u","d","l","r"};
 
-/*Arreglo con los movimientos del cubo
- segun el sentido del reloj antihorario y
- horario, represar las letras mayusculas como
- giros antihorarios y las minusculas como giros
- horarios
- */
-Move[] allMoves = new Move [] {
+/*Arreglo con los movimientos del cubo segun el sentido del reloj antihorario y
+ horario, se representan las letras mayusculas como giros antihorarios y las minusculas
+ como giros horarios */
+Move[] allMoves = new Move []
+  {
   new Move(0, 1, 0, 1), //giro Down antihorario
   new Move(0, 1, 0, -1), //giro down horario
 
@@ -58,45 +42,35 @@ Move[] allMoves = new Move [] {
   new Move(0, 0, -1, -1) //giro back horario
 };
 
-//String sequence = "";
-//int count = 0;
-boolean startScreen = true; // Variable para controlar la pantalla de inicio
-boolean start = false;
-//boolean showManual = false;
-boolean optionPane = false;
-String nombre = "";
-
-boolean mostrarPopup = false;
-GButton mostrarButton;
-GButton closeButton;
-
 Move move = allMoves[0];
 
-public void setup() {
-  size(600, 600, P3D); 
-  cam = new PeasyCam(this, 400); 
+public void setup()
+{
+  size(700, 650, P3D);
+  cam = new PeasyCam(this, 400);
   cam.setActive(false);
-  bgImage = loadImage("C:\\Users\\Usuario\\Desktop\\CuboProcessing\\Rubik-Cube\\cub.jpg");
-  //bgImage.resize(400, 400);
+  bgImage = loadImage("C:\\Users\\JOCSAN\\Desktop\\Rubik-Cube\\cub.jpg");
   cp5 = new ControlP5(this);
-  int buttonX = width / 2 - 40;
-  int buttonY1 = 400 ;
-  //int buttonY2 = height /  2 + 20;
+  int buttonX = width / 2 - 20;
+  int buttonY1 = 580 ;
   createGUI();
   boton = new Boton(cp5, buttonX, buttonY1, "Jugar", new CallbackListener() {
     public void controlEvent(CallbackEvent theEvent) {
       startScreen = false;
-       optionPane = true;
+      optionPane = true;
       start = true;
     }
   }
   );
+  boton.setColor(color(#7177cc), color(#e1e7ff), color(#0c0e72));
 
-     
   int i = 0;
-  for (int x = -1; x <= 1; x++) {
-    for (int y = -1; y <= 1; y++) {
-      for (int z = -1; z <= 1; z++) {
+  for (int x = -1; x <= 1; x++)
+  {
+    for (int y = -1; y <= 1; y++)
+    {
+      for (int z = -1; z <= 1; z++)
+      {
         PMatrix3D matrix = new PMatrix3D();
         matrix.translate(x, y, z);
         cube[i] = new Cubie(matrix, x, y, z);
@@ -107,21 +81,21 @@ public void setup() {
 }
 
 
-public void draw() {
-  if(startScreen ) {
+public void draw()
+{
+  if (startScreen ) {
     background(0); // pantalla de inicio
-    image(bgImage,0,0, width, height);
+    image(bgImage, 0, 0, width, height);
     fill(255); // Texto b  lanco
     textSize(32);
-    if(mostrarPopup){
+    if (mostrarPopup) {
       drawPopup();
     }
-   
-  }else if (optionPane) {
+  } else if (optionPane) {
     nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
     optionPane = false;
     start = true;
-  }else {
+  } else {
     mostrarButton.setVisible(false);
     cam.setActive(true);
     boton.setVisible(false);
@@ -133,7 +107,8 @@ public void draw() {
     move.update();
 
     scale(50);
-    for (int i = 0; i < cube.length; i++) {
+    for (int i = 0; i < cube.length; i++)
+    {
       push();
       if (abs(cube[i].z) > 0 && cube[i].z == move.z) {
         rotateZ(move.angle);
