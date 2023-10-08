@@ -1,5 +1,5 @@
 import peasy.*;
-
+import javax.swing.JOptionPane;
 import controlP5.*;
 
 ControlP5 cp5;
@@ -13,7 +13,7 @@ PeasyCam cam;
 String manual = "Manual de Usuario - Juego de Cubo Rubik\n" +
 "Controles:\n" +
 "Para comenzar el juego desde la pantalla de inicio, presiona el boton de jugar.\n" +
-"Una vez en el juego, puedes realizar los movimientos del cubo utilizando las siguientes teclas:\n\n" +
+"Una vez en el juego, puedes realizar los movimientos del cubo utilizando las siguientes teclas:\n" +
 "-Tecla d: Gira la cara inferior (Down) en el sentido horario.\n" +
 "-Tecla D: Gira la cara inferior (Down) en el sentido antihorario.\n"+
 "-Tecla u: Gira la cara superior (Up) en el sentido horario.\n"+
@@ -25,7 +25,7 @@ String manual = "Manual de Usuario - Juego de Cubo Rubik\n" +
 "-Tecla f: Gira la cara frontal (Front) en el sentido horario.\n"+
 "-Tecla F: Gira la cara frontal (Front) en el sentido antihorario.\n"+
 "-Tecla b: Gira la cara trasera (Back) en el sentido horario.\n"+
-"-Tecla B: Gira la cara trasera (Back) en el sentido antihorario.\n\n"+
+"-Tecla B: Gira la cara trasera (Back) en el sentido antihorario.\n"+
 "¡Diviértete jugando el Cubo Rubik en Processing!";
 
 int dim = 3;
@@ -63,6 +63,8 @@ Move[] allMoves = new Move [] {
 boolean startScreen = true; // Variable para controlar la pantalla de inicio
 boolean start = false;
 boolean showManual = false;
+boolean mostrarPopup = false;
+String nombre = "";
 
 Move move = allMoves[0];
 
@@ -81,6 +83,7 @@ public void setup() {
   boton = new Boton(cp5, buttonX, buttonY1, "Jugar", new CallbackListener() {
     public void controlEvent(CallbackEvent theEvent) {
       startScreen = false;
+       mostrarPopup = true;
       start = true;
     }
   }
@@ -94,10 +97,11 @@ public void setup() {
     }
   }
   );
-    bt3 = new Boton(cp5, buttonX, buttonY2 + 300, "Regresar", new CallbackListener() {
+    bt3 = new Boton(cp5, buttonX, buttonY2 + 220, "Regresar", new CallbackListener() {
     public void controlEvent(CallbackEvent theEvent) {
       startScreen = true;
       start = false;
+      showManual = false;
       //showManual = !showManual;
     }
   }
@@ -125,6 +129,7 @@ public void draw() {
     textSize(32);
     bt3.setVisible(false);
    } else if (showManual) {
+     cam.setActive(false);
     bt2.setVisible(false);
     boton.setVisible(false);
     background(0); 
@@ -132,6 +137,10 @@ public void draw() {
     textSize(16);
     text(manual, 50, 50, width - 100, height - 100);
     bt3.setVisible(true);
+     } else if (mostrarPopup) {
+        nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
+        mostrarPopup = false;
+        start = true;
   } else {
     cam.setActive(true);
     boton.setVisible(false);
