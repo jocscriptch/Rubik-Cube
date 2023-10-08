@@ -5,9 +5,28 @@ import controlP5.*;
 ControlP5 cp5;
 Button boton;
 Button bt2;
+Button bt3;
+PImage bgImage;
 
 PeasyCam cam;
 
+String manual = "Manual de Usuario - Juego de Cubo Rubik\n" +
+"Controles:\n" +
+"Para comenzar el juego desde la pantalla de inicio, presiona el boton de jugar.\n" +
+"Una vez en el juego, puedes realizar los movimientos del cubo utilizando las siguientes teclas:\n\n" +
+"-Tecla d: Gira la cara inferior (Down) en el sentido horario.\n" +
+"-Tecla D: Gira la cara inferior (Down) en el sentido antihorario.\n"+
+"-Tecla u: Gira la cara superior (Up) en el sentido horario.\n"+
+"-Tecla U: Gira la cara superior (Up) en el sentido antihorario.\n"+
+"-Tecla r: Gira la cara derecha (Right) en el sentido horario.\n"+
+"-Tecla R: Gira la cara derecha (Right) en el sentido antihorario.\n"+
+"-Tecla l: Gira la cara izquierda (Left) en el sentido horario.\n"+
+"-Tecla L: Gira la cara izquierda (Left) en el sentido antihorario.\n"+
+"-Tecla f: Gira la cara frontal (Front) en el sentido horario.\n"+
+"-Tecla F: Gira la cara frontal (Front) en el sentido antihorario.\n"+
+"-Tecla b: Gira la cara trasera (Back) en el sentido horario.\n"+
+"-Tecla B: Gira la cara trasera (Back) en el sentido antihorario.\n\n"+
+"¡Diviértete jugando el Cubo Rubik en Processing!";
 
 int dim = 3;
 Cubie[] cube = new Cubie[dim*dim*dim]; // Matriz tridimensional 3x3
@@ -51,20 +70,22 @@ public void setup() {
   size(600, 600, P3D); 
   cam = new PeasyCam(this, 400); 
   cam.setActive(false);
-  // Inicializa ControlP5
+  bgImage = loadImage("C:\\Users\\yeikoag\\Desktop\\EstructuraDeDatos\\Rubik-Cube\\cub.jpg");
+  //bgImage.resize(400, 400);
   cp5 = new ControlP5(this);
 
-  // Crea un botón llamado 'btn' en la posición (100,100) con tamaño de 80x40
-  boton = cp5.addButton("btn")
-     .setPosition(100,100)
-     .setSize(80,40)
-     .setLabel("Jugar")
-     .onClick(new CallbackListener() {
-        public void controlEvent(CallbackEvent theEvent) {
-          startScreen = false;
-           start = true;
-       }
-     });
+  int buttonX = width / 2 - 40;
+  int buttonY1 = height / 2 - 20;
+  int buttonY2 = height /  2 + 20;
+
+  boton = new Boton(cp5, buttonX, buttonY1, "Jugar", new CallbackListener() {
+    public void controlEvent(CallbackEvent theEvent) {
+      startScreen = false;
+      start = true;
+    }
+  }
+  );
+ 
    bt2 = cp5.addButton("btnManual")
      .setPosition(200,100)
      .setSize(80,40)
@@ -72,6 +93,17 @@ public void setup() {
      .onClick(new CallbackListener() {
        public void controlEvent(CallbackEvent theEvent) {
          startScreen = false;
+         start = false;
+         showManual = !showManual;
+         }
+     });
+     bt3 = cp5.addButton("btBack")
+     .setPosition(300,100)
+     .setSize(80,40)
+     .setLabel("Inicio")
+     .onClick(new CallbackListener() {
+       public void controlEvent(CallbackEvent theEvent) {
+         startScreen = true;
          start = false;
          showManual = !showManual;
          }
@@ -94,16 +126,18 @@ public void setup() {
 public void draw() {
   if (startScreen) {
     background(0); // pantalla de inicio
+    image(bgImage,0,0, width, height);
     fill(255); // Texto b  lanco
     textSize(32);
-    
+    bt3.setVisible(false);
    } else if (showManual) {
     bt2.setVisible(false);
     boton.setVisible(false);
-    background(0); // pantalla del manual
-    fill(255); // Texto blanco
+    background(0); 
+    fill(#00F7FF); 
     textSize(16);
-    text("Aquí va el manual del juego...", width/2, height/2);
+    text(manual, 50, 50, width - 100, height - 100);
+    bt3.setVisible(true);
   } else {
     cam.setActive(true);
     boton.setVisible(false);
