@@ -1,7 +1,7 @@
 import peasy.*;
 import javax.swing.JOptionPane;
 import controlP5.*;
-
+import g4p_controls.*;
 ControlP5 cp5;
 Boton boton, bt2, bt3;
 Textfield nameField;
@@ -62,9 +62,13 @@ Move[] allMoves = new Move [] {
 //int count = 0;
 boolean startScreen = true; // Variable para controlar la pantalla de inicio
 boolean start = false;
-boolean showManual = false;
-boolean mostrarPopup = false;
+//boolean showManual = false;
+boolean optionPane = false;
 String nombre = "";
+
+boolean mostrarPopup = false;
+GButton mostrarButton;
+GButton closeButton;
 
 Move move = allMoves[0];
 
@@ -77,35 +81,18 @@ public void setup() {
   cp5 = new ControlP5(this);
 
   int buttonX = width / 2 - 40;
-  int buttonY1 = height / 2 - 20;
-  int buttonY2 = height /  2 + 20;
-
+  int buttonY1 = 400 ;
+  //int buttonY2 = height /  2 + 20;
+  createGUI();
   boton = new Boton(cp5, buttonX, buttonY1, "Jugar", new CallbackListener() {
     public void controlEvent(CallbackEvent theEvent) {
       startScreen = false;
-       mostrarPopup = true;
+       optionPane = true;
       start = true;
     }
   }
   );
- 
- bt2 = new Boton(cp5, buttonX, buttonY2, "Manual", new CallbackListener() {
-    public void controlEvent(CallbackEvent theEvent) {
-      startScreen = false;
-      start = false;
-      showManual = !showManual;
-    }
-  }
-  );
-    bt3 = new Boton(cp5, buttonX, buttonY2 + 220, "Regresar", new CallbackListener() {
-    public void controlEvent(CallbackEvent theEvent) {
-      startScreen = true;
-      start = false;
-      showManual = false;
-      //showManual = !showManual;
-    }
-  }
-  );
+
      
   int i = 0;
   for (int x = -1; x <= 1; x++) {
@@ -122,29 +109,23 @@ public void setup() {
 
 
 public void draw() {
-  if (startScreen) {
+  if(startScreen ) {
     background(0); // pantalla de inicio
     image(bgImage,0,0, width, height);
     fill(255); // Texto b  lanco
     textSize(32);
-    bt3.setVisible(false);
-   } else if (showManual) {
-     cam.setActive(false);
-    bt2.setVisible(false);
-    boton.setVisible(false);
-    background(0); 
-    fill(#00F7FF); 
-    textSize(16);
-    text(manual, 50, 50, width - 100, height - 100);
-    bt3.setVisible(true);
-     } else if (mostrarPopup) {
-        nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
-        mostrarPopup = false;
-        start = true;
-  } else {
+    if(mostrarPopup){
+      drawPopup();
+    }
+   
+  }else if (optionPane) {
+    nombre = JOptionPane.showInputDialog("Ingrese su nombre:");
+    optionPane = false;
+    start = true;
+  }else {
+    drawPopup();
     cam.setActive(true);
     boton.setVisible(false);
-    bt2.setVisible(false);
     background(#151515); // Establecer el fondo de la ventana
     rotateX(-0.5);
     rotateY(0.4);
