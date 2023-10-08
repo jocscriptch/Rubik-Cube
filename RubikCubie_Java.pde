@@ -76,10 +76,9 @@ public void setup() {
   size(600, 600, P3D); 
   cam = new PeasyCam(this, 400); 
   cam.setActive(false);
-  bgImage = loadImage("C:\\Users\\yeikoag\\Desktop\\EstructuraDeDatos\\Rubik-Cube\\cub.jpg");
+  bgImage = loadImage("C:\\Users\\Usuario\\Desktop\\CuboProcessing\\Rubik-Cube\\cub.jpg");
   //bgImage.resize(400, 400);
   cp5 = new ControlP5(this);
-
   int buttonX = width / 2 - 40;
   int buttonY1 = 400 ;
   //int buttonY2 = height /  2 + 20;
@@ -123,7 +122,7 @@ public void draw() {
     optionPane = false;
     start = true;
   }else {
-    drawPopup();
+    mostrarButton.setVisible(false);
     cam.setActive(true);
     boton.setVisible(false);
     background(#151515); // Establecer el fondo de la ventana

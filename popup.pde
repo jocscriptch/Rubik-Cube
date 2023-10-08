@@ -16,6 +16,7 @@ void handleButtonEvents(GButton button, GEvent event) {
   } else if (button == closeButton && event == GEvent.CLICKED) {
     mostrarPopup = false;
     closeButton.setVisible(false);
+    
   }
 }
 
