@@ -3,9 +3,9 @@ import peasy.*;
 import controlP5.*;
 
 ControlP5 cp5;
-Button boton;
-Button bt2;
-Button bt3;
+Boton boton, bt2, bt3;
+Textfield nameField;
+
 PImage bgImage;
 
 PeasyCam cam;
@@ -86,28 +86,22 @@ public void setup() {
   }
   );
  
-   bt2 = cp5.addButton("btnManual")
-     .setPosition(200,100)
-     .setSize(80,40)
-     .setLabel("Manual")
-     .onClick(new CallbackListener() {
-       public void controlEvent(CallbackEvent theEvent) {
-         startScreen = false;
-         start = false;
-         showManual = !showManual;
-         }
-     });
-     bt3 = cp5.addButton("btBack")
-     .setPosition(300,100)
-     .setSize(80,40)
-     .setLabel("Inicio")
-     .onClick(new CallbackListener() {
-       public void controlEvent(CallbackEvent theEvent) {
-         startScreen = true;
-         start = false;
-         showManual = !showManual;
-         }
-     });
+ bt2 = new Boton(cp5, buttonX, buttonY2, "Manual", new CallbackListener() {
+    public void controlEvent(CallbackEvent theEvent) {
+      startScreen = false;
+      start = false;
+      showManual = !showManual;
+    }
+  }
+  );
+    bt3 = new Boton(cp5, buttonX, buttonY2 + 300, "Regresar", new CallbackListener() {
+    public void controlEvent(CallbackEvent theEvent) {
+      startScreen = true;
+      start = false;
+      //showManual = !showManual;
+    }
+  }
+  );
      
   int i = 0;
   for (int x = -1; x <= 1; x++) {
