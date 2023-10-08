@@ -1,6 +1,9 @@
 import peasy.*;
-
+import controlP5.*;
+ControlP5 cp5;
+Button boton;
 PeasyCam cam;
+
 
 int dim = 3;
 Cubie[] cube = new Cubie[dim*dim*dim]; // Matriz tridimensional 3x3
@@ -34,13 +37,30 @@ Move[] allMoves = new Move [] {
 
 //String sequence = "";
 //int count = 0;
-
+boolean startScreen = true; // Variable para controlar la pantalla de inicio
 boolean start = false;
+
+
 Move move = allMoves[0];
 
 public void setup() {
-  size(600, 600, P3D); // Tamaño de la ventana
-  cam = new PeasyCam(this, 400); // Inicializar cámara 3D
+  size(600, 600, P3D); 
+  cam = new PeasyCam(this, 400); 
+  cam.setActive(false);
+  // Inicializa ControlP5
+  cp5 = new ControlP5(this);
+
+  // Crea un botón llamado 'btn' en la posición (100,100) con tamaño de 80x40
+  boton = cp5.addButton("btn")
+     .setPosition(100,100)
+     .setSize(80,40)
+     .setLabel("Jugar")
+     .onClick(new CallbackListener() {
+        public void controlEvent(CallbackEvent theEvent) {
+          startScreen = false;
+           start = true;
+       }
+     });
   int i = 0;
   for (int x = -1; x <= 1; x++) {
     for (int y = -1; y <= 1; y++) {
@@ -52,61 +72,46 @@ public void setup() {
       }
     }
   }
-  //cube[0].c = color(255, 0, 0);
-  //cube[2].c = color(0, 0, 255);
-
-  //for (int k = 0; k < 10; k++) {
-  //  int r = int(random(allMoves.length));
-  //  if (random(1) < 0.5) {
-  //    sequence += allMoves[r];
-  //  } else {
-  //    sequence += allMoves[r].toUpperCase();
-  //  }
-  //}
-
-  ////regresar la sequencia para armar el cubo volver a su estado original
-  //for (int n = sequence.length() - 1; n >= 0; n--){
-
-  //}
-  // println(sequence);
-
-  //move = new Move(0, 0, 1, -1); //mover f
-  //move = new Move(1, 0, 0, 1); // mover r
-  //move = new Move(0, 1, 0, 1); //mover D
 }
+
 
 public void draw() {
+  if (startScreen) {
+    background(0); // pantalla de inicio
+    fill(255); // Texto b  lanco
+    textSize(32);
+    //text("Presiona ENTER para jugar", width/2, height/2); // Mensaje en la pantalla de inicio
+  } else {
+    cam.setActive(true);
+    boton.setVisible(false);
+    background(#151515); // Establecer el fondo de la ventana
+    rotateX(-0.5);
+    rotateY(0.4);
+    rotateZ(0.1);
 
-  background(#151515); // Establecer el fondo de la ventana
-  rotateX(-0.5);
-  rotateY(0.4);
-  rotateZ(0.1);
+    move.update();
 
-  move.update();
-  //if(move.finished()){
-  //  turnZ.(move.z, move.dir);
-  //}
-
-  //if(start){
-  //  if(frameCount % 20 == 0){
-  //  if(count < sequence.length()){
-  //    char move = sequence.charAt(count);
-  //    applyMove(move);
-  //    count++;
-  //    }
-  //  }
-  //}
-  scale(50);
-  for (int i = 0; i < cube.length; i++) {
-    push();
-    if (abs(cube[i].z) > 0 && cube[i].z == move.z) {
-      rotateZ(move.angle);
-    } else if (abs(cube[i].x) > 0 && cube[i].x == move.x) {
-      rotateX(move.angle);
-    } else if (abs(cube[i].y) > 0 && cube[i].y == move.y) {
-      rotateY(-move.angle);
+    scale(50);
+    for (int i = 0; i < cube.length; i++) {
+      push();
+      if (abs(cube[i].z) > 0 && cube[i].z == move.z) {
+        rotateZ(move.angle);
+      } else if (abs(cube[i].x) > 0 && cube[i].x == move.x) {
+        rotateX(move.angle);
+      } else if (abs(cube[i].y) > 0 && cube[i].y == move.y) {
+        rotateY(-move.angle);
+      }
+      cube[i].show();
+      pop();
     }
-    cube[i].show();
-    pop();
   }
 }
+
+//public void  keyReleased() {
+ // println("bt activado");
+  //if (key == ENTER) { 
+    //startScreen = false;
+    //start = true; 
+    
+  //}
+//}
