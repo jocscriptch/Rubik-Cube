@@ -1,5 +1,4 @@
 class Face {
-
   PVector normal;
   color c;
 
@@ -18,7 +17,6 @@ class Face {
   }
 
   public void turnY(float angle) {
-
     PVector v2 = new PVector();
     v2.x = round(normal.x * cos(angle) - normal.z * sin(angle));
     v2.z = round(normal.x * sin(angle) + normal.z * cos(angle));
@@ -46,7 +44,6 @@ class Face {
     } else if (abs(normal.y) > 0) {
       rotateX(HALF_PI);
     }
-
     square(0, 0, 1);
     popMatrix();
   }

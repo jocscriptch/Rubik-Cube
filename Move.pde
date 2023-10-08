@@ -1,6 +1,5 @@
 //Clase para el movimiento de las caras del cubo
 class Move {
-
   float angle = 0;
   int x =0;
   int y = 0;
@@ -26,7 +25,7 @@ class Move {
 
   public void update() {
     if (animating) {
-      angle += dir * 0.1;
+      angle += dir * speed;
       if (abs(angle) > HALF_PI) {
         angle = 0;
         animating = false;

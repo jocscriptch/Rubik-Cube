@@ -22,7 +22,6 @@ class Cubie {
   }
 
   public void update(int x, int y, int z) {
-
     matrix.reset();
     matrix.translate(x, y, z);
     this.x = x;
@@ -32,7 +31,6 @@ class Cubie {
 
   //rotar caras Z
   public void turnFacesZ(int direction) {
-
     for (Face f : faces) {
       f.turnZ(direction*HALF_PI);
       
@@ -41,7 +39,6 @@ class Cubie {
 
   //caras Y
   public void turnFacesY(int direction) {
-
     for (Face f : faces) {
       f.turnY(direction*HALF_PI);
     }
@@ -49,15 +46,12 @@ class Cubie {
 
   //caras X
   public void turnFacesX(int direction) {
-
     for (Face f : faces) {
       f.turnX(direction*HALF_PI);
     }
   }
 
   public void show() {
-
-    //fill(c);
     noFill();
     stroke(52,56,55); //borde negro
     strokeWeight(0.1); //ancho del borde
@@ -66,10 +60,8 @@ class Cubie {
     box(1);
 
     for (Face f : faces) {
-
       f.show();
     }
-
     popMatrix(); //restaurar la transformacion de la matriz
   }
 }
