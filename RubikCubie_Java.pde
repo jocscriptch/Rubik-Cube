@@ -1,7 +1,11 @@
 import peasy.*;
+
 import controlP5.*;
+
 ControlP5 cp5;
 Button boton;
+Button bt2;
+
 PeasyCam cam;
 
 
@@ -39,7 +43,7 @@ Move[] allMoves = new Move [] {
 //int count = 0;
 boolean startScreen = true; // Variable para controlar la pantalla de inicio
 boolean start = false;
-
+boolean showManual = false;
 
 Move move = allMoves[0];
 
@@ -61,6 +65,18 @@ public void setup() {
            start = true;
        }
      });
+   bt2 = cp5.addButton("btnManual")
+     .setPosition(200,100)
+     .setSize(80,40)
+     .setLabel("Manual")
+     .onClick(new CallbackListener() {
+       public void controlEvent(CallbackEvent theEvent) {
+         startScreen = false;
+         start = false;
+         showManual = !showManual;
+         }
+     });
+     
   int i = 0;
   for (int x = -1; x <= 1; x++) {
     for (int y = -1; y <= 1; y++) {
@@ -80,10 +96,18 @@ public void draw() {
     background(0); // pantalla de inicio
     fill(255); // Texto b  lanco
     textSize(32);
-    //text("Presiona ENTER para jugar", width/2, height/2); // Mensaje en la pantalla de inicio
+    
+   } else if (showManual) {
+    bt2.setVisible(false);
+    boton.setVisible(false);
+    background(0); // pantalla del manual
+    fill(255); // Texto blanco
+    textSize(16);
+    text("Aquí va el manual del juego...", width/2, height/2);
   } else {
     cam.setActive(true);
     boton.setVisible(false);
+    bt2.setVisible(false);
     background(#151515); // Establecer el fondo de la ventana
     rotateX(-0.5);
     rotateY(0.4);
@@ -106,12 +130,3 @@ public void draw() {
     }
   }
 }
-
-//public void  keyReleased() {
- // println("bt activado");
-  //if (key == ENTER) { 
-    //startScreen = false;
-    //start = true; 
-    
-  //}
-//}
