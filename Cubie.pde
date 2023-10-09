@@ -25,7 +25,6 @@ class Cubie
 
   public void update(int x, int y, int z) 
   {
-
     matrix.reset();
     matrix.translate(x, y, z);
     this.x = x;

@@ -21,7 +21,6 @@ class Face
 
   public void turnY(float angle) 
   {
-
     PVector v2 = new PVector();
     v2.x = round(normal.x * cos(angle) - normal.z * sin(angle));
     v2.z = round(normal.x * sin(angle) + normal.z * cos(angle));

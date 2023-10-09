@@ -15,6 +15,7 @@ boolean optionPane = false;
 boolean mostrarPopup = false;
 String nombre = "";
 
+float speed = 0.15;
 int dim = 3;
 Cubie[] cube = new Cubie[dim*dim*dim]; // Matriz tridimensional 3x3
 
@@ -22,7 +23,7 @@ Cubie[] cube = new Cubie[dim*dim*dim]; // Matriz tridimensional 3x3
  horario, se representan las letras mayusculas como giros antihorarios y las minusculas
  como giros horarios */
 Move[] allMoves = new Move []
-  {
+{
   new Move(0, 1, 0, 1), //giro Down antihorario
   new Move(0, 1, 0, -1), //giro down horario
 
@@ -42,6 +43,8 @@ Move[] allMoves = new Move []
   new Move(0, 0, -1, -1) //giro back horario
 };
 
+int count = 0;
+boolean start = false;
 Move move = allMoves[0];
 
 public void setup()
@@ -79,7 +82,6 @@ public void setup()
     }
   }
 }
-
 
 public void draw()
 {

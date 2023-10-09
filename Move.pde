@@ -30,15 +30,12 @@ class Move
   public void update() 
   {
     if (animating) {
-      angle += dir * 0.1;
-      if (abs(angle) > HALF_PI) 
-      {
+      angle += dir * speed;
+      if (abs(angle) > HALF_PI) {
         angle = 0;
         animating = false;
         finished = true;
-
-        if (abs(z) > 0) 
-        {
+        if (abs(z) > 0) {
           turnZ(z, dir);
         } else if (abs(x) > 0) {
           turnX(x, dir);
