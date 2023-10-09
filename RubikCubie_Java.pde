@@ -17,6 +17,7 @@ String nombre = "";
 
 float speed = 0.15;
 int dim = 3;
+int count = 0;
 Cubie[] cube = new Cubie[dim*dim*dim]; // Matriz tridimensional 3x3
 
 /*Arreglo con los movimientos del cubo segun el sentido del reloj antihorario y
@@ -43,8 +44,6 @@ Move[] allMoves = new Move []
   new Move(0, 0, -1, -1) //giro back horario
 };
 
-int count = 0;
-boolean start = false;
 Move move = allMoves[0];
 
 public void setup()
@@ -102,6 +101,9 @@ public void draw()
     cam.setActive(true);
     boton.setVisible(false);
     background(#151515); // Establecer el fondo de la ventana
+    fill(255); // Texto b  lanco
+    textSize(32);
+    text(count, 100, 100);
     rotateX(-0.5);
     rotateY(0.4);
     rotateZ(0.1);
