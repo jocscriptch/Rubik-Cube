@@ -1,5 +1,6 @@
 //Clase para el movimiento de las caras del cubo
-class Move {
+class Move
+{
   float angle = 0;
   int x =0;
   int y = 0;
@@ -8,29 +9,32 @@ class Move {
   boolean animating  = false;
   boolean finished  = false;
 
-  Move (int x, int y, int z, int dir) {
+  Move (int x, int y, int z, int dir) 
+  {
     this.x = x;
     this.y = y;
     this.z = z;
     this.dir = dir;
   }
 
-  public void start() {
+  public void start() 
+  {
     animating = true;
   }
 
-  boolean finished() {
+  boolean finished() 
+  {
     return finished;
   }
 
-  public void update() {
+  public void update() 
+  {
     if (animating) {
       angle += dir * speed;
       if (abs(angle) > HALF_PI) {
         angle = 0;
         animating = false;
         finished = true;
-
         if (abs(z) > 0) {
           turnZ(z, dir);
         } else if (abs(x) > 0) {

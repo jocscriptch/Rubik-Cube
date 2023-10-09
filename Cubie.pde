@@ -1,4 +1,5 @@
-class Cubie {
+class Cubie 
+{
   PMatrix3D matrix;
   int x = 0;
   int y = 0;
@@ -6,7 +7,8 @@ class Cubie {
   color c;
   Face[] faces = new Face[6];
 
-  Cubie(PMatrix3D m, int x, int y, int z) {
+  Cubie(PMatrix3D m, int x, int y, int z)
+  {
     this.matrix = m;
     this.x = x;
     this.y = y;
@@ -21,7 +23,8 @@ class Cubie {
     faces[5] = new Face(new PVector(-1, 0, 0), color(255, 44, 67)); //cara roja
   }
 
-  public void update(int x, int y, int z) {
+  public void update(int x, int y, int z) 
+  {
     matrix.reset();
     matrix.translate(x, y, z);
     this.x = x;
@@ -30,7 +33,8 @@ class Cubie {
   }
 
   //rotar caras Z
-  public void turnFacesZ(int direction) {
+  public void turnFacesZ(int direction) 
+  {
     for (Face f : faces) {
       f.turnZ(direction*HALF_PI);
       
@@ -38,20 +42,23 @@ class Cubie {
   }
 
   //caras Y
-  public void turnFacesY(int direction) {
+  public void turnFacesY(int direction)
+  {
     for (Face f : faces) {
       f.turnY(direction*HALF_PI);
     }
   }
 
   //caras X
-  public void turnFacesX(int direction) {
+  public void turnFacesX(int direction) 
+  {
     for (Face f : faces) {
       f.turnX(direction*HALF_PI);
     }
   }
 
-  public void show() {
+  public void show() 
+  {
     noFill();
     stroke(52,56,55); //borde negro
     strokeWeight(0.1); //ancho del borde
@@ -59,7 +66,8 @@ class Cubie {
     applyMatrix(matrix); //aplicar la transformacion
     box(1);
 
-    for (Face f : faces) {
+    for (Face f : faces) 
+    {
       f.show();
     }
     popMatrix(); //restaurar la transformacion de la matriz

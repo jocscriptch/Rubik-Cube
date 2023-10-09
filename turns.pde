@@ -1,7 +1,8 @@
 // metodos para los giros de los ejes x,y,z
 
 //rotar Z
-public void turnZ(int index, int dir) {
+public void turnZ(int index, int dir) 
+{
   for (int i = 0; i < cube.length; i++) {
     Cubie c = cube[i];
     if (c.z == index) {
@@ -15,7 +16,8 @@ public void turnZ(int index, int dir) {
 }
 
 //rotar Y
-public void turnY(int index, int dir) {
+public void turnY(int index, int dir) 
+{
   for (int i = 0; i < cube.length; i++) {
     Cubie c = cube[i];
     if (c.y == index) {
@@ -29,7 +31,8 @@ public void turnY(int index, int dir) {
 }
 
 //rotar X
-public void turnX(int index, int dir) {
+public void turnX(int index, int dir) 
+{
   for (int i = 0; i < cube.length; i++) {
     Cubie c = cube[i];
     if (c.x == index) {
