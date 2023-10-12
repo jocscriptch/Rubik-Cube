@@ -52,7 +52,7 @@ public void setup()
   size(700, 650, P3D);
   cam = new PeasyCam(this, 400);
   cam.setActive(false);
-  bgImage = loadImage("C:\\Users\\Usuario\\Desktop\\CuboProcessing\\Rubik-Cube\\cub.jpg");
+  bgImage = loadImage("C:\\Users\\JOCSAN\\Desktop\\Rubik-Cube\\cub.jpg");
   cp5 = new ControlP5(this);
   int buttonX = width / 2 - 20;
   int buttonY1 = 580 ;
@@ -124,7 +124,7 @@ public void draw()
     boton1.setVisible(false);
     boton2.setVisible(false);
     background(#151515); // Establecer el fondo de la ventana
-    fill(255); // Texto b  lanco
+    fill(255); // Texto blanco
     textSize(32);
     text(count, 100, 100);
     rotateX(-0.5);

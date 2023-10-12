@@ -1,4 +1,4 @@
-public void createGUI() 
+public void createGUI()
 {
   mostrarButton = new GButton(this, 200, 580, 100, 40); // Inicializar mostrarButton aquí
   mostrarButton.setText("Manual juego");
@@ -10,7 +10,7 @@ public void createGUI()
   closeButton.addEventHandler(this, "handleButtonEvents");
 }
 
-public void handleButtonEvents(GButton button, GEvent event) 
+public void handleButtonEvents(GButton button, GEvent event)
 {
   if (button == mostrarButton && event == GEvent.CLICKED) {
     mostrarPopup = true;
@@ -18,14 +18,13 @@ public void handleButtonEvents(GButton button, GEvent event)
   } else if (button == closeButton && event == GEvent.CLICKED) {
     mostrarPopup = false;
     closeButton.setVisible(false);
-    
   }
 }
 
 public void drawPopup()
 {
   fill(255);
-  rect(100, 0, 500, 500);
+  rect(100, 0, 505, 505);
   fill(0);
   textAlign(CENTER, CENTER);
   textSize(14);
@@ -45,5 +44,9 @@ public void drawPopup()
     "-Tecla F: Gira la cara frontal (Front) en el sentido antihorario.\n"+
     "-Tecla b: Gira la cara trasera (Back) en el sentido horario.\n"+
     "-Tecla B: Gira la cara trasera (Back) en el sentido antihorario.\n"+
-    "¡Diviértete jugando el Cubo Rubik en Processing!", 100, 0, 500, 500);
+    "-Tecla S o s: Te arma el cubo\n"+
+    "-Tecla G o g: Te guarda una partida\n"+
+    "-Tecla C o c: Te carga una partida\n"+
+    "-Tecla espacio: Ejecuta los movimientos guardados\n"+
+    "¡Diviértete jugando el Cubo Rubik en Processing!", 100, 0, 505, 505);
 }

@@ -9,10 +9,6 @@ import java.io.BufferedWriter;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-//String jugadorCargado = ""; // Variable para almacenar el nombre del jugador cargado
-//Queue<Character> movimientosCargados = new LinkedList<Character>(); // Cola para almacenar los movimientos cargados
-
-
 Stack<Character> pilaTeclas = new Stack<Character>();
 Queue<Character> colaTeclas = new LinkedList<Character>();
 
@@ -127,7 +123,7 @@ public void keyPressed() {
     cargarMovimientos();
     printQueue();
   }
-  if (key == ' '){
+  if (key == ' ') {
     ejecutarMovimiento();
   }
 }
@@ -221,7 +217,7 @@ public void ejecutarMovimientos() {
 
 public void guardarPartida() {
   try {
-    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Usuario\\Desktop\\CuboProcessing\\Rubik-Cube\\Game.txt"));
+    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\JOCSAN\\Desktop\\Rubik-Cube\\Game.txt"));
     // Escribir el nombre del jugador en el archivo
     writer.write(nombre);
     writer.newLine();
@@ -241,16 +237,16 @@ public void guardarPartida() {
     // Cerrar el archivo
     writer.close();
 
-    println("Partida guardada exitosamente en el archivo 'Game.txt'.");
+    JOptionPane.showMessageDialog(null, "Partida guardada exitosamente en el archivo Game.txt");
   }
   catch (IOException e) {
-    println("Error al guardar la partida: " + e.getMessage());
+    JOptionPane.showMessageDialog(null, "Error al guardar la partida: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
   }
 }
 
 public void cargarMovimientos() {
   try {
-    BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Usuario\\Desktop\\CuboProcessing\\Rubik-Cube\\Game.txt"));
+    BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\JOCSAN\\Desktop\\Rubik-Cube\\Game.txt"));
     String nombreGuardado = reader.readLine(); // Leer la primera línea del archivo (nombre)
 
     // Comparar el nombre guardado con el nombre ingresado
@@ -262,14 +258,14 @@ public void cargarMovimientos() {
         System.out.println(tecla);
         colaTeclas.add(tecla);
       }
-      println("Movimientos cargados exitosamente.");
+      JOptionPane.showMessageDialog(null, "Partida cargada exitosamente!");
     } else {
-      println("El nombre ingresado no coincide con el nombre guardado en el archivo.");
+      JOptionPane.showMessageDialog(null, "No se encontro el jugador: ", "Error", JOptionPane.ERROR_MESSAGE);
     }
     reader.close();
   }
   catch (IOException e) {
-    println("Error al cargar los movimientos: " + e.getMessage());
+    JOptionPane.showMessageDialog(null, "Error al cargar los movimientos: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
   }
 }
 
