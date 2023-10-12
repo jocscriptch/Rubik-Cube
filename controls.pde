@@ -3,8 +3,19 @@ import java.util.LinkedList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+//String jugadorCargado = ""; // Variable para almacenar el nombre del jugador cargado
+//Queue<Character> movimientosCargados = new LinkedList<Character>(); // Cola para almacenar los movimientos cargados
+
 
 Stack<Character> pilaTeclas = new Stack<Character>();
+Queue<Character> colaTeclas = new LinkedList<Character>();
+
 // Crear e inicializar el mapa para almacenar las teclas
 Map<Character, Character> mapTeclas = new HashMap<Character, Character>() {
   {
@@ -26,6 +37,7 @@ Map<Character, Character> mapTeclas = new HashMap<Character, Character>() {
 public void keyPressed() {
   if (mapTeclas.containsKey(key)) {
     pilaTeclas.push(key);
+    colaTeclas.add(key); // Agregar la tecla a la cola
     switch (key) {
     case 'd':
       move = new Move(0, 1, 0, -1); // Giro horario de la cara down
@@ -107,10 +119,26 @@ public void keyPressed() {
     ejecutarMovimientos();
     printStack();
   }
+  if (key == 'G' || key == 'g') {
+    guardarPartida();
+  }
+
+  if (key == 'C' || key == 'c') {
+    cargarMovimientos();
+    printQueue();
+  }
+  if (key == ' '){
+    ejecutarMovimiento();
+  }
 }
 
 public void printStack() {
   System.out.println("Contenido de la pila: " + pilaTeclas.toString());
+}
+
+
+void printQueue() {
+  System.out.print("Contenido de la cola: " + colaTeclas.toString());
 }
 
 public void fillStack() {
@@ -120,9 +148,7 @@ public void fillStack() {
 public void ejecutarMovimientos() {
   if (!pilaTeclas.isEmpty()) {
     char tecla = pilaTeclas.pop(); // Sacar la última tecla presionada de la pila
-    System.out.println("Con");
     if (mapTeclas.containsKey(tecla)) {
-      System.out.println("dentr");
       switch (tecla) {
       case 'd':
         move = new Move(0, 1, 0, 1); // Giro horario de la cara down
@@ -184,6 +210,134 @@ public void ejecutarMovimientos() {
         move = new Move(0, 0, -1, -1); // Giro antihorario de la cara back
         move.start();
         count--;
+        break;
+      default:
+        return;
+      }
+    }
+  }
+}
+
+
+public void guardarPartida() {
+  try {
+    BufferedWriter writer = new BufferedWriter(new FileWriter("C:\\Users\\Usuario\\Desktop\\CuboProcessing\\Rubik-Cube\\Game.txt"));
+    // Escribir el nombre del jugador en el archivo
+    writer.write(nombre);
+    writer.newLine();
+
+    // Escribir cada movimiento en una nueva línea
+    for (Character tecla : colaTeclas) {
+      writer.write(tecla);
+      writer.newLine();
+    }
+
+    System.out.print("Contenido de la cola: ");
+    for (Character tecla : colaTeclas) {
+      System.out.print(tecla + " ");
+    }
+    println();
+
+    // Cerrar el archivo
+    writer.close();
+
+    println("Partida guardada exitosamente en el archivo 'Game.txt'.");
+  }
+  catch (IOException e) {
+    println("Error al guardar la partida: " + e.getMessage());
+  }
+}
+
+public void cargarMovimientos() {
+  try {
+    BufferedReader reader = new BufferedReader(new FileReader("C:\\Users\\Usuario\\Desktop\\CuboProcessing\\Rubik-Cube\\Game.txt"));
+    String nombreGuardado = reader.readLine(); // Leer la primera línea del archivo (nombre)
+
+    // Comparar el nombre guardado con el nombre ingresado
+    if (nombreGuardado != null && nombreGuardado.equals(partida)) {
+      String linea;
+      System.out.println(nombreGuardado);
+      while ((linea = reader.readLine()) != null) {
+        char tecla = linea.trim().charAt(0);
+        System.out.println(tecla);
+        colaTeclas.add(tecla);
+      }
+      println("Movimientos cargados exitosamente.");
+    } else {
+      println("El nombre ingresado no coincide con el nombre guardado en el archivo.");
+    }
+    reader.close();
+  }
+  catch (IOException e) {
+    println("Error al cargar los movimientos: " + e.getMessage());
+  }
+}
+
+public void ejecutarMovimiento() {
+  if (!colaTeclas.isEmpty()) {
+    char tecla = colaTeclas.poll(); // Sacar la última tecla presionada de la COLA
+    if (mapTeclas.containsKey(tecla)) {
+      switch (tecla) {
+      case 'd':
+        move = new Move(0, 1, 0, -1); // Giro horario de la cara down
+        move.start();
+        count++;
+        break;
+      case 'D':
+        move = new Move(0, 1, 0, 1); // Giro antihorario de la cara down
+        move.start();
+        count++;
+        break;
+      case 'u':
+        System.out.println("u");
+        move = new Move(0, -1, 0, 1);// Giro horario de la cara up
+        move.start();
+        count++;
+        break;
+      case 'U':
+        move = new Move(0, -1, 0, -1); // Giro antihorario de la cara up
+        move.start();
+        count++;
+        break;
+      case 'r':
+        move = new Move(1, 0, 0, 1); // Giro horario de la cara right
+        move.start();
+        count++;
+        break;
+      case 'R':
+        move = new Move(1, 0, 0, -1); // Giro antihorario de la cara right
+        move.start();
+        count++;
+        break;
+      case 'l':
+        move = new Move(-1, 0, 0, -1); // Giro horario de la cara left
+        move.start();
+        count++;
+        break;
+      case 'L':
+        move = new Move(-1, 0, 0, 1); // Giro antihorario de la cara left
+        move.start();
+        count++;
+        break;
+      case 'f':
+        move = new Move(0, 0, 1, 1); // Giro horario de la cara front
+        move.start();
+        count++;
+        break;
+      case 'F':
+        move = new Move(0, 0, 1, -1); // Giro antihorario de la cara front
+        move.start();
+        count++;
+        break;
+      case 'b':
+        move = new Move(0, 0, -1, -1); // Giro horario de la cara back
+        move.start();
+        count++;
+        break;
+      case 'B':
+        move = new Move(0, 0, -1, 1); // Giro antihorario de la cara back
+        move.start();
+        count++;
         break;
       default:
         return;
