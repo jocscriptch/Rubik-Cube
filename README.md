@@ -13,3 +13,5 @@ The program not only offers an accurate simulation of the Rubik's Cube, but also
 https://github.com/jocscriptch/Rubik-Cube.git
 
 ## Graphic visualization
+[![Screenshot-2023-10-11-234839.png](https://i.postimg.cc/RhFrqm8n/Screenshot-2023-10-11-234839.png)](https://postimg.cc/WFQYfBs2)
+[![Screenshot-2023-10-11-234923.png](https://i.postimg.cc/wBcnV3Ym/Screenshot-2023-10-11-234923.png)](https://postimg.cc/8Fcykp5p)
